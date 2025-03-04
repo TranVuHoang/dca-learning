@@ -21,6 +21,12 @@
     <ClCompile Include="dca_fuzzy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="data.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="data.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="node.md">

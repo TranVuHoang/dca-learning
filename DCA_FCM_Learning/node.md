@@ -67,3 +67,17 @@
 
     for (int i = 0; i < value.size() - 1; i++)
         row.push_back(stod(value)[i]); // Chuyển thành số
+
+### Hàm tính GradientH
+    input: `2 biến u, v`:
+        - u có kích thước cxn: u(cxn) n: số dòng của data, c: là số tâm cần phân cụm(nhóm)
+        - v có kích thước cxd: v(cxd) c: là số tâm cần phân cụm, d: là số cột của data
+        - x(dữ liệu): nxd: x(nxd)
+
+    output: u_new, v_new
+    cấu trúc: 
+    void gradientH(vector<vector<double>> u, vector<vector<double>> v, vector<vector<double>> &u_new, vector<vector<double>> &v_new) 
+    {
+        // đầu vào: vector<vector<double>> u, vector<vector<double>> v
+        // đầu ra: vector<vector<double>> &u_new, vector<vector<double>> &v_new
+    }

@@ -127,6 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="data.cpp" />
+    <ClCompile Include="data.h" />
     <ClCompile Include="dca_fuzzy.cpp" />
   </ItemGroup>
   <ItemGroup>
