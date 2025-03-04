@@ -49,3 +49,21 @@
       _.dll
       \*.log
       ```
+
+
+### Viết hàm đọc file data thành mảng trong C++
+
+    vector<string> values; // values 1 dòng trong data
+    string value; // value 1 phần tử trong dòng
+
+    // Duyệt qua các dòng của data
+    while (getline(file, line)) 
+
+    //  ✅ Chức năng:
+    //  Tách chuỗi 1 dòng (ss) thành các phần(value) nhỏ dựa trên delimiter (ký tự phân tách).
+    //  Thêm từng phần vào dòng vector values bằng push_back(value).
+    while (getline(ss, value, delimiter)): duyệt qua 1 phần tử(value) trong 1 dòng(ss) của data
+        values.push_back(value); // đẩy giá các phần tử(value) đã duyệt vào dòng(values)
+
+    for (int i = 0; i < value.size() - 1; i++)
+        row.push_back(stod(value)[i]); // Chuyển thành số
