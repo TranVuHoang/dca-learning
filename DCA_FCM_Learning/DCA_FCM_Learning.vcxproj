@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="data.cpp" />
     <ClCompile Include="data.h" />
+    <ClCompile Include="dca.cpp" />
     <ClCompile Include="dca_fuzzy.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +137,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="iris.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dca.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

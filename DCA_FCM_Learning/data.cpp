@@ -10,8 +10,8 @@
 DATA::DATA() {
     c = 3;
     rho = 1;
-    d = 1;
-    n = 1;
+    d = 4;
+    n = 150;
 }
 
 //DATA::DATA(int ce, int ro) {
@@ -21,8 +21,7 @@ DATA::DATA() {
 
 
 /* 2. Method to read data from data.txt */
-void DATA::readFile()
-{
+void DATA::readFile() {
     ifstream file("./iris.txt");
 
     if (!file) {
@@ -56,8 +55,8 @@ void DATA::readFile()
             cerr << "Loi: '" << value << "' khong phai so hop le!\n";
         }
     }
-    size_t n = x.size();
-    size_t d = x[0].size();
+    size_t n = x.size(); // n = 150
+    size_t d = x[0].size(); // d = 4
 
     file.close();
 }
