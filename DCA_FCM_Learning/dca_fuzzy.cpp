@@ -1,6 +1,6 @@
 ﻿/*---------------------------------------------------
 # Author	: TRAN VU HOANG                        
-# Date		: 04-03-2025                            
+# Date		: 05-03-2025                            
 # Language	: Cplusplus		                        				
 # Version	: 1.00		                            					
 # Subject	: Fuzzy Clustering Algorithm            

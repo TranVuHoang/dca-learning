@@ -131,6 +131,7 @@
     <ClCompile Include="data.h" />
     <ClCompile Include="dca.cpp" />
     <ClCompile Include="dca_fuzzy.cpp" />
+    <ClCompile Include="func.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="node.md" />
@@ -140,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dca.h" />
+    <ClInclude Include="func.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -30,6 +30,9 @@
     <ClCompile Include="dca.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="func.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="node.md">
@@ -43,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dca.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
