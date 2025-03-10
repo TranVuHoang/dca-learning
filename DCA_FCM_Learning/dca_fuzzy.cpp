@@ -28,11 +28,11 @@ int main() {
         /*Tính đạo hàm của G*/
         data.GradientG(); // 
 
-        if (data.Stop()) {
-            break;
-        }
+        //if (data.Stop()) {
+        //    break;
+        //}
 
-        // gán u_2 = u
+        // gán u_2 = u`
         // gán v_2 = v
         //cout << data.Objective();
         iter++;

@@ -100,12 +100,43 @@ void DCA::GradientH() {
 	// ouput: u_new, v_new ✅
 }
 
+/* Tính tham số bán kính r */
+//double SquareNormVector(const vector<double>& vec) {
+//	double result = 0.0;
+//
+//	for (double value : vec)  // Duyệt từng phần tử của vector
+//		result += value * value;
+//	return result;
+//}
+
+/* Tính tham số bán kính r theo công thức 3.2 */
+//Hàm tính tổng bình phương của một vector(chuẩn 2 bình phương của 1 vec)
+double SquareNormVector(vector<double> &vec) {
+	double result = 0.0;
+	int sizeVector = vec.size();
+
+	for (int i = 0; i < sizeVector; i++)
+		result += vec[i] * vec[i];
+	return result;
+}
+
+//Hàm tính bán kính r
+double	R_Calculated(int n, int d, vector<vector<double>>& x, double m) {
+	double result = 0.0;
+
+	for (int k = 0; k < n; k++) {
+		result += SquareNormVector(x[k]);
+	}
+	return sqrt(result);
+}
+
 /* Tính đạo hàm của G */
 void DCA::GradientG() {
 	// input: u_new, v_new
-	int r = 0;
 	u_2.resize(c, vector<double>(n)); // Khai báo u_2 có kích thước: (cxn)✅
 	v_2.resize(c, vector<double>(d)); // Khai báo v_2 có kích thước: (cxd)✅
+
+	double r = R_Calculated(n, d, x, m);
 
 	// Tính v_2
 	for (int i = 0; i < c; i++) {
@@ -137,7 +168,7 @@ void DCA::GradientG() {
 			double norm_inv = 1.0 / sqrt(norm); // Tính 1/norm để tránh chia nhiều lần
 			
 			for (int k = 0; k < n; k++) {
-				u_2[i][k] *= norm_inv; 
+				u_2[i][k] = u[i][k]* norm_inv; 
 			}
 		}
 	}
@@ -155,11 +186,11 @@ void DCA::GradientG() {
 }
 
 /* Kiểm tra điều kiện dừng*/
-bool DCA::Stop() {
-	// Tính d = chuẩn 2 của ||(u_2, v_2) -(u, v)|| 
-	//return (d < epsilon);
-	return 1;
-}
+//void DCA::Stop() {
+//	// Tính d = chuẩn 2 của ||(u_2, v_2) -(u, v)|| 
+//	//return (d < epsilon);
+//
+//}
 
 void DCA::Objective() {
 
