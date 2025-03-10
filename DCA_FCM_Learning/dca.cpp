@@ -29,6 +29,51 @@ double SquareEuclidean(const vector<double>& vector1, const vector<double>& vect
 	return distance;
 }
 
+
+/* Tính tham số bán kính r theo công thức 3.2 */
+//Hàm tính tổng bình phương của một vector(chuẩn 2 bình phương của 1 vec)
+double SquareNormVector(vector<double>& vec) {
+	double sum = 0.0;
+	int sizeVector = vec.size();
+
+	for (int i = 0; i < sizeVector; i++)
+		sum += vec[i] * vec[i];
+	return sum;
+}
+
+//Hàm tính r ✅
+double	R_Calculated(vector<vector<double>>& vec) {
+	double result = 0.0;
+	int sizeVector = vec.size();
+
+	for (int i = 0; i < sizeVector; i++) {
+		result += SquareNormVector(vec[i]);
+	}
+	return sqrt(result);
+}
+
+// Hàm tính alpha theo công thức α = r + max ‖xₖ‖ ✅
+double CalculateAlpha(vector<vector<double>>& vec) {
+	double r = R_Calculated(vec);  // Gọi hàm tính r
+
+	double max_norm = 0.0;
+
+	for (auto& v : vec) {
+		max_norm = max(max_norm, sqrt(SquareNormVector(v)));  // Lấy norm-2
+	}
+
+	return r + max_norm;
+}
+
+// Hàm tính rho theo công thức (29) ✅
+double CaclulateRho(double m, vector<vector<double>>& vec) {
+	int n = vec.size();
+	double alpha_squared = CalculateAlpha(vec) * CalculateAlpha(vec);
+	double temp = m * (2 * m - 1) * alpha_squared / n;
+
+	return temp + sqrt(temp * temp + 16 * m * m * alpha_squared / n);
+}
+
 /* Khởi tạo random u, v ✅*/
 void DCA::InitRandom() {
 	// Cấp phát kích thước cho u, v
@@ -60,7 +105,6 @@ void DCA::GradientH() {
 	u_new.resize(c, vector<double>(n)); // Khai báo u_new có kích thước: (cxn)✅
 	v_new.resize(c, vector<double>(d)); // Khai báo v_new có kích thước: (cxd)✅
 	// input: x✅, v✅, u✅, m✅, rho✅
-	/*double	temp = 0;*/
 
 	// Tính u_new ✅
 	for (int i = 0; i < c; i++) {
@@ -73,21 +117,6 @@ void DCA::GradientH() {
 	vector<vector<double>> temp(c, vector<double>(d, 0.0)); // Khởi tạo vector temp với d phần tử 0.0
 
 	// Tính v_new ✅
-	//for (int i = 0; i < c; i++) {
-	//	// Tính temp = ∑(k, n)[(V(i,l) - xk) * pow(t(i, k), 2m)]
-	//	for (int l = 0; l < d; l++) {
-	//		for (int k = 0; k < n; k++) { // Duyệt qua từng chiều dữ liệu
-	//			temp[i][l] += (v[i][l] - x[k][l]) * pow(u[i][l], (2 * m));
-	//		}
-	//	}
-
-	//	for (int l = 0; l < d; l++) { // Cập nhật v_new
-	//		v_new[i][l] = rho * v[i][l] - 2 * temp[i][l];
-	//	}
-	//}
-	//vector<vector<double>> temp(c, vector<double>(d, 0.0)); // Khởi tạo vector temp với d phần tử 0.0
-
-	// Tính v_new ✅
 	for (int i = 0; i < c; i++) {
 		// Tính temp = ∑(k, n)[(V(i,l) - xk) * pow(t(i, k), 2m)]
 		for (int l = 0; l < d; l++) {
@@ -97,46 +126,18 @@ void DCA::GradientH() {
 			v_new[i][l] = rho * v[i][l] - 2 * temp[i][l];
 		}
 	}
-	// ouput: u_new, v_new ✅
 }
 
-/* Tính tham số bán kính r */
-//double SquareNormVector(const vector<double>& vec) {
-//	double result = 0.0;
-//
-//	for (double value : vec)  // Duyệt từng phần tử của vector
-//		result += value * value;
-//	return result;
-//}
 
-/* Tính tham số bán kính r theo công thức 3.2 */
-//Hàm tính tổng bình phương của một vector(chuẩn 2 bình phương của 1 vec)
-double SquareNormVector(vector<double> &vec) {
-	double result = 0.0;
-	int sizeVector = vec.size();
-
-	for (int i = 0; i < sizeVector; i++)
-		result += vec[i] * vec[i];
-	return result;
-}
-
-//Hàm tính bán kính r
-double	R_Calculated(int n, int d, vector<vector<double>>& x, double m) {
-	double result = 0.0;
-
-	for (int k = 0; k < n; k++) {
-		result += SquareNormVector(x[k]);
-	}
-	return sqrt(result);
-}
-
-/* Tính đạo hàm của G */
+/* Tính đạo hàm của G ✅ */
 void DCA::GradientG() {
 	// input: u_new, v_new
 	u_2.resize(c, vector<double>(n)); // Khai báo u_2 có kích thước: (cxn)✅
 	v_2.resize(c, vector<double>(d)); // Khai báo v_2 có kích thước: (cxd)✅
 
-	double r = R_Calculated(n, d, x, m);
+	double r = R_Calculated(x); // 97,67
+	double alpha = CalculateAlpha(x); // 108.78
+	double rho = CaclulateRho(m, x); // 165.4
 
 	// Tính v_2
 	for (int i = 0; i < c; i++) {
@@ -168,7 +169,7 @@ void DCA::GradientG() {
 			double norm_inv = 1.0 / sqrt(norm); // Tính 1/norm để tránh chia nhiều lần
 			
 			for (int k = 0; k < n; k++) {
-				u_2[i][k] = u[i][k]* norm_inv; 
+				u_2[i][k] = u[i][k] * norm_inv;
 			}
 		}
 	}
@@ -195,3 +196,4 @@ void DCA::GradientG() {
 void DCA::Objective() {
 
 }
+

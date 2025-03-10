@@ -9,7 +9,6 @@
 /* 1. Method Constructor  */
 DATA::DATA() {
     c = 3;
-    rho = 1;
     d = 4;
     n = 150;
 }

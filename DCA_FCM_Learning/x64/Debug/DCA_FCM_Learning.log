@@ -1,3 +1,1 @@
-﻿  dca.cpp
-C:\Users\Admin\Desktop\DCA-learning\DCA_FCM_Learning\dca.cpp(116,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  DCA_FCM_Learning.vcxproj -> C:\Users\Admin\Desktop\DCA-learning\DCA_FCM_Learning\x64\Debug\DCA_FCM_Learning.exe
+﻿  DCA_FCM_Learning.vcxproj -> C:\Users\Admin\Desktop\DCA-learning\DCA_FCM_Learning\x64\Debug\DCA_FCM_Learning.exe

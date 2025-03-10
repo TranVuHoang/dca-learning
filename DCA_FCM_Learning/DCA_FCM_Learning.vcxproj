@@ -132,6 +132,7 @@
     <ClCompile Include="dca.cpp" />
     <ClCompile Include="dca_fuzzy.cpp" />
     <ClCompile Include="func.cpp" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="node.md" />

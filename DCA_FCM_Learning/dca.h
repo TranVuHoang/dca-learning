@@ -15,7 +15,7 @@ public:
 	vector<vector<double>> u_2;
 	vector<vector<double>> v_2;
 
-	int m = 1;
+	int m = 1.2; // m là tham số chỉ độ m, giá trị [1.1 - 5] tuỳ chỉnh theo từng bộ dữ liệu
 	
 	void InitRandom();
 	void GradientH();
