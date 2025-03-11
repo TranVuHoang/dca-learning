@@ -12,7 +12,7 @@
 //#include "func.h"
 #include <random>
 
-// Hàm tính khoảng cách Euclid bình phương giữa hai vector(tính chuẩn 2)bình phương
+// Hàm tính khoảng cách Euclid - bình phương giữa hai vector(tính chuẩn 2 - bình phương)
 double SquareEuclidean(const vector<double>& vector1, const vector<double>& vector2) {
 	if (vector1.size() != vector2.size()) {
 		cerr << "Error: Vectors must have the same size!" << endl;
@@ -20,15 +20,15 @@ double SquareEuclidean(const vector<double>& vector1, const vector<double>& vect
 	}
 
 	double distance = 0.0;
+	int sizeVector = vector1.size();
 
 	// Tính tổng bình phương hiệu của từng phần tử
-	for (size_t i = 0; i < vector1.size(); i++) {
+	for (size_t i = 0; i < sizeVector; i++) {
 		distance += pow(vector1[i] - vector2[i], 2);
 	}
 
 	return distance;
 }
-
 
 /* Tính tham số bán kính r theo công thức 3.2 */
 //Hàm tính tổng bình phương của một vector(chuẩn 2 bình phương của 1 vec)
@@ -106,11 +106,14 @@ void DCA::GradientH() {
 	v_new.resize(c, vector<double>(d)); // Khai báo v_new có kích thước: (cxd)✅
 	// input: x✅, v✅, u✅, m✅, rho✅
 
+	double rho = CaclulateRho(m, x);
+
 	// Tính u_new ✅
 	for (int i = 0; i < c; i++) {
 		for (int k = 0; k < n; k++) {
-			double dtemp = SquareEuclidean(x[k], v[i]); // Tính khoảng cách Euclid bình phương
-			u_new[i][k] = rho * u[i][k] - (2 * m * pow(u[i][k], (2 * m - 1.0))) * dtemp;
+			double dtemp = SquareEuclidean(x[k], v[i]); // Khoảng cách Euclid bình phương
+			double u_pow = pow(u[i][k], (2 * m - 1.0)); // Tính trước giá trị mũ
+			u_new[i][k] = rho * u[i][k] - (2 * m * u_pow * dtemp);
 		}
 	}
 
@@ -118,16 +121,22 @@ void DCA::GradientH() {
 
 	// Tính v_new ✅
 	for (int i = 0; i < c; i++) {
-		// Tính temp = ∑(k, n)[(V(i,l) - xk) * pow(t(i, k), 2m)]
-		for (int l = 0; l < d; l++) {
-			for (int k = 0; k < n; k++) {
-				temp[i][l] += (v[i][l] - x[k][l]) * pow(u[i][l], (2 * m));
+		vector<double> temp(d, 0.0);
+
+		for (int k = 0; k < n; k++) {
+			double u_pow = pow(u[i][k], (2 * m)); // Tính trước giá trị mũ
+
+			for (int l = 0; l < d; l++) {
+				temp[l] += (v[i][l] - x[k][l]) * u_pow;
 			}
-			v_new[i][l] = rho * v[i][l] - 2 * temp[i][l];
+		}
+
+		for (int l = 0; l < d; l++) {
+			v_new[i][l] = rho * v[i][l] - 2 * temp[l]; // Cập nhật v_new sau khi tính xong temp
 		}
 	}
-}
 
+}
 
 /* Tính đạo hàm của G ✅ */
 void DCA::GradientG() {

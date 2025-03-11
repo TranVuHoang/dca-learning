@@ -15,8 +15,9 @@ public:
 	vector<vector<double>> u_2;
 	vector<vector<double>> v_2;
 
-	int m = 1.2; // m là tham số chỉ độ m, giá trị [1.1 - 5] tuỳ chỉnh theo từng bộ dữ liệu
-	
+	double m = 1.2; // m là tham số chỉ độ mờ, giá trị [1.1 - 5] tuỳ chỉnh theo từng bộ dữ liệu
+	double epsilon = 0.00001;
+
 	void InitRandom();
 	void GradientH();
 	void GradientG();

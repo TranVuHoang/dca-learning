@@ -12,7 +12,6 @@ int main() {
     DCA data;
 
     data.readFile();
-
     // u,v input random
     data.InitRandom();
 
@@ -22,11 +21,9 @@ int main() {
     /* Repeat*/
     while (iter < maxIter)
     {
-        /*Tính đạo hàm của H*/
         data.GradientH(); //✅
-
-        /*Tính đạo hàm của G*/
         data.GradientG(); // 
+        data.m;
 
         //if (data.Stop()) {
         //    break;
@@ -34,9 +31,17 @@ int main() {
 
         // gán u_2 = u`
         // gán v_2 = v
-        //cout << data.Objective();
         iter++;
+
+        //obj = calculation.getObjFCM(self.data, u, v, self.m, self.n, self.k, self.param['t']);
+        if (1 < data.epsilon) {
+            break;
+        }
     }
+
+    cout << "Solving..................Done." << endl;
+    cout << "Number of iterations: " << iter << endl;
+    //cout << " Final Objective value: " << obj;
     /* Hàm mục tiêu của bài toán*/
 
     return 0;
