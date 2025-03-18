@@ -1,10 +1,11 @@
 ﻿/*---------------------------------------------------
-# Author	: TRAN VU HOANG                        
-# Date		: 05-03-2025                            
-# Language	: Cplusplus		                        				
-# Version	: 1.00		                            					
-# Subject	: Fuzzy Clustering Algorithm            
-# Name		: dca_fuzzy.cpp	                        					
+# Author		: TRAN VU HOANG                        
+# Start date	: 05-03-2025                            
+# Start update	: 18-03-2025                            
+# Language		: Cplusplus		                        				
+# Version		: 1.00		                            					
+# Subject		: Fuzzy Clustering Algorithm            
+# Name			: dca_fuzzy.cpp	                        					
 ----------------------------------------------------*/
 #include "dca.h"
 
@@ -16,7 +17,7 @@ int main() {
 	dca.InitRandom();
 
 	int iter = 0;
-	int maxIter = 10000;
+	int maxIter = 1000;
 	
 	double J2m_original = 0.0;
 	double J2m_final = 0.0;
@@ -33,7 +34,7 @@ int main() {
 
 		// Tính giá trị hàm mục tiêu sau khi cập nhật
 		dca.computeJ2m(J2m_final);
-		cout << "Updated Objective Value (J2m_new) " << iter + 1 << ": " << J2m_final << endl;
+		cout << "Updated Objective Value (J2m_new) " << iter << ": " << J2m_final << endl;
 
 		// Until
 		dca.checkFrobeniusNorm(check);

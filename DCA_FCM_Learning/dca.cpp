@@ -3,10 +3,11 @@
 # Subject       : Định nghĩa nội dung của phương thức
 #                 bên ngoài lớp DCA
 # ClassName		: DCA
-# Method: 
+# Main method: 
 #	1. void GradientH()
 #	2. void GradientG()
 #	3. void Objective()
+#   ...
 -----------------------------------------------------------*/
 #include "dca.h"
 //#include "func.h"
@@ -20,10 +21,10 @@ double SquareEuclidean(const vector<double>& vector1, const vector<double>& vect
 	assert(vector1.size() == vector2.size() && "Vectors must have the same size!");
 
 	double distance = 0.0;
-	int sizeVector = vector1.size();
+	int sizeVector = (int)vector1.size();
 
 	// Tính tổng bình phương hiệu của từng phần tử
-	for (size_t i = 0; i < sizeVector; i++) {
+	for (int i = 0; i < sizeVector; i++) {
 		double diff = vector1[i] - vector2[i];
 		distance += diff * diff;
 	}
@@ -34,17 +35,17 @@ double SquareEuclidean(const vector<double>& vector1, const vector<double>& vect
 //Hàm tính tổng bình phương của một vector(chuẩn 2 bình phương của 1 vector)
 double SquareNormVector(vector<double>& vec) {
 	double sum = 0.0;
-	int sizeVector = vec.size();
+	int sizeVector = (int)vec.size();
 
 	for (int i = 0; i < sizeVector; i++)
 		sum += vec[i] * vec[i];
 	return sum;
 }
 
-//Hàm tính r ✅
+// Hàm tính r ✅
 double	R_Calculated(vector<vector<double>>& vec) {
 	double result = 0.0;
-	int sizeVector = vec.size();
+	int sizeVector = (int)vec.size();
 
 	for (int i = 0; i < sizeVector; i++) {
 		result += SquareNormVector(vec[i]);
@@ -67,14 +68,14 @@ double CalculateAlpha(vector<vector<double>>& vec) {
 
 // Hàm tính rho theo công thức (29) ✅
 double CaclulateRho(double m, vector<vector<double>>& vec) {
-	int n = vec.size();
+	int n = (int) vec.size();
 	double alpha_squared = CalculateAlpha(vec) * CalculateAlpha(vec);
 	double temp = m * (2 * m - 1) * alpha_squared / n;
 
 	return temp + sqrt(temp * temp + 16 * m * m * alpha_squared / n);
 }
 
-/* Khởi tạo random u, v ✅*/
+/*---------- Hàm khởi tạo random u, v start----------*/
 void DCA::InitRandom() {
 	// Cấp phát kích thước cho u, v
 	u.resize(c, vector<double> (n, 0.0)); // Khai báo u có kích thước: (cxn)
@@ -99,8 +100,9 @@ void DCA::InitRandom() {
 		}
 	}
 }
+/*---------- Hàm khởi tạo random u, v end----------*/
 
-/* Tính đạo hàm của H ✅*/
+/*---------- Hàm tính đạo hàm của H start----------*/
 void DCA::GradientH() {
 	u_new.resize(c, vector<double>(n)); // Khai báo u_new có kích thước: (cxn)✅
 	v_new.resize(c, vector<double>(d)); // Khai báo v_new có kích thước: (cxd)✅
@@ -137,8 +139,9 @@ void DCA::GradientH() {
 	}
 
 }
+/*---------- Hàm tính đạo hàm của H end----------*/
 
-/* Tính đạo hàm của G ✅ */
+/*---------- Hàm tính đạo hàm của G start----------*/
 void DCA::GradientG() {
 	// input: u_new, V_l+1
 	u_2.resize(c, vector<double>(n)); // Khai báo u_2 có kích thước: (cxn)✅
@@ -180,22 +183,10 @@ void DCA::GradientG() {
 			u_2[i][k] = u_new[i][k] * norm_inv;// kết quả trả về mảng u_2
 		}
 	}
-
-
-
-	// Gán lại giá trị cập nhật
-	//u = u_new;
-	//v = V_l+1;
-	//vector<vector<double>> u_2 = u;
-	//vector<vector<double>> v_2 = v;
-
-
-	// output: u_2, v_2
-	// Kiểm tra điều kiện dừng: || u_2 -u, v_2 - v|| <= epsilon
-	// u = u_2, v = v_2;
 }
+/*---------- Hàm tính đạo hàm của G end ----------*/
 
-/*-------------------Hàm mục tiêu ban đầu -----------------------------------*/
+/*---------- Hàm mục tiêu start ----------*/
 // Hàm mục tiêu ban đầu
 void DCA::computeJ2mOriginal(double& J2m) {
 	J2m = 0.0;
@@ -225,13 +216,11 @@ void DCA::computeJ2m(double& J2m) { // Truyền J2m vào để cập nhật giá
 		}
 	}
 }
-/*------------------- End Hàm mục tiêu-----------------------------------*/
+/*---------- Hàm mục tiêu end ----------*/
 
-
-/*---------- Điều kiện dừng start-------------------*/
-double norm_diff = 0.0;
-
+/*---------- Điều kiện dừng start ----------*/
 void DCA::checkFrobeniusNorm(double& norm_frobenius) {
+	double norm_diff = 0.0;
 	double norm_diff1 = 0.0; // Chuẩn 2 của T_l+1 - T_l
 	double norm_diff2 = 0.0; // Chuẩn 2 của V_l+1 - V_l
 
@@ -250,23 +239,15 @@ void DCA::checkFrobeniusNorm(double& norm_frobenius) {
 			norm_diff2 += diff * diff;
 		}
 	}
-
 	// Tổng hai chuẩn bình phương
-	double norm_diff = norm_diff1 + norm_diff2;
+	norm_diff = norm_diff1 + norm_diff2;
 
 	// Lấy chuẩn Frobenius
 	norm_frobenius = sqrt(norm_diff);
 }
+/*---------- Điều kiện dừng end ----------*/
 
-/*---------- Điều kiện dừng end-------------------*/
-
-/* Kiểm tra điều kiện dừng*/
-//void DCA::Stop() {
-//	// Tính d = chuẩn 2 của ||(u_2, v_2) -(u, v)|| 
-//	//return (d < epsilon);
-//
-//}
-
+/*---------- Update U,V start ----------*/
 void DCA::updateMembership() {
     // Cập nhật tâm cụm v_2
     for (int i = 0; i < c; i++) {
@@ -282,4 +263,4 @@ void DCA::updateMembership() {
         }
     }
 }
-
+/*---------- Update U,V end ----------*/
