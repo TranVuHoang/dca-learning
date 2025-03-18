@@ -54,8 +54,8 @@ void DATA::readFile() {
             cerr << "Loi: '" << value << "' khong phai so hop le!\n";
         }
     }
-    size_t n = x.size(); // n = 150
-    size_t d = x[0].size(); // d = 4
+    n = (int)x.size(); // n = 150
+    d = (int) x[0].size(); // d = 4
 
     file.close();
 }
