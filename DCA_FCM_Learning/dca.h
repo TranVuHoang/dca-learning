@@ -26,6 +26,4 @@ public:
 	void computeJ2m(double& J2m); // Hàm mục tiêu và cập nhật vào J2m
 	void checkFrobeniusNorm(double& norm_frobenius); // hàm kiểm tra điều kiện dừng
 	void updateMembership();
-	bool Stop();
-	void Objective();
 };

@@ -9,8 +9,8 @@
 /* 1. Method Constructor  */
 DATA::DATA() {
     c = 3;
-    d = 4;
-    n = 150;
+    d;
+    n;
 }
 
 //DATA::DATA(int ce, int ro) {
