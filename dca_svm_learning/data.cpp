@@ -6,10 +6,12 @@
 -----------------------------------------------------------*/
 #include "data.h"
 
+/* Phương thức khởi tạo DATA*/
 DATA::DATA() {
     c = 200;
-    n = 150;
-    d = 4;
+    n;
+    d;
+    k;
 }
 
 /* 2. Method to read data from data.txt */
@@ -21,6 +23,7 @@ void DATA::readFile() {
     }
     string line;
 
+    // Duyệt qua các dòng 
     while (getline(file, line)) {
         if (line.empty()) continue;  // Bỏ qua dòng trống
 
@@ -43,11 +46,11 @@ void DATA::readFile() {
             y.push_back(stod(values.back()));
         }
         catch (const invalid_argument&) {
-            cerr << "Error: '" << value << "' khong phai so hop le!\n";
+            cerr << "Loi: '" << value << "' khong phai so hop le!\n";
         }
     }
-    size_t n = x.size();
-    size_t d = x[0].size();
+    n = (int)x.size(); // n = 150
+    d = (int)x[0].size(); // d = 4
 
     file.close();
 }

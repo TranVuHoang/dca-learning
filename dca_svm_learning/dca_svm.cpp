@@ -3,15 +3,19 @@
 # Date start: 09-03-2025
 # Language	: Cplusplus
 # Version	: 1.00
-# Subject	: SVM Algorithm
+# Subject	: MSVM Algorithm
 # Name		: dca_svm.cpp
 ----------------------------------------------------*/
 #include "dca.h"
 
 int main() {
-    DCA data;
+    DCA dca;
+    dca.n;
+    dca.d;
 
-    data.readFile();
+    dca.readFile();
+    dca.n;
+    dca.d;
 
     return 0;
 }

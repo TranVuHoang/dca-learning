@@ -26,7 +26,7 @@ int main() {
 	dca.computeJ2mOriginal(J2m_original); 	// Tính giá trị hàm mục tiêu ban đầu
 	
 	/* Repeat*/
-	while (iter < maxIter or iter == maxIter)
+	while (iter < maxIter || iter == maxIter)
 	{
 		dca.GradientH(); //✅
 		dca.GradientG(); //✅

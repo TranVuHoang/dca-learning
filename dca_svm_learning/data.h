@@ -30,14 +30,12 @@ public:
 	int c; // tham số điều chỉnh✅
 	int k; // số class của từng bộ dữ liệu✅
 	
-
 	/*-----------------------------------------------------
 	# METHODS:
 	#	Data(): Constructor Method ✅
 	#	readFile(): hàm đọc file data input
 	-------------------------------------------------------*/
 	DATA();
-
 	void readFile();
 };
 

@@ -7,8 +7,8 @@
 
 class DCA :public DATA {
 public:
-	vector<vector<double>> w;
-	vector<vector<double>> e;
+	vector<vector<double>> w; // biến w
+	vector<vector<double>> e; // biến cờ xi
 
 	vector<vector<double>> w_new;
 	vector<vector<double>> e_new;
@@ -21,4 +21,8 @@ public:
 	double alpha; // Tham số của bài báo The Algorithm 2: l2 - l0 - DCA1 
 	// alpha = 0.9✅
 	double lambda; // tham số cho  SCAD penalty function
+
+	void initRandom(); // Hàm khởi tạo mảng ngẫu nhiên
+	void gradientH(); // Hàm tính đạo hàm của  H
+
 };
