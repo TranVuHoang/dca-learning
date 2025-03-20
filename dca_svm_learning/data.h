@@ -14,7 +14,7 @@ class DATA {
 public:
 	/*-----------------------------------------------------
 	# INPUT:
-	#	Matrix: X(n, d)
+	#	Matrix: X(n, d) 
 	#	Vector: Y(n)
 	#
 	# PARAMETER:
@@ -28,7 +28,7 @@ public:
 	vector<double> y; // biến y: để lưu mảng class(cột class)
 
 	int c; // tham số điều chỉnh✅
-	int k; // số class của từng bộ dữ liệu✅
+	int q; // số class của từng bộ dữ liệu✅
 	
 	/*-----------------------------------------------------
 	# METHODS:

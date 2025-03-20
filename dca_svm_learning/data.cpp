@@ -2,16 +2,18 @@
 # Name file     : data.cpp
 # Subject       : Định nghĩa nội dung của phương thức
 #                 bên ngoài lớp DATA
-# Phương thức   : DATA::readFile
+# Phương thức   : 
+#   1. DATA::DATA(); Phương thức khởi tạo
+#   2. DATA::readFile(); Phương thức đọc file data
 -----------------------------------------------------------*/
 #include "data.h"
 
 /* Phương thức khởi tạo DATA*/
 DATA::DATA() {
-    c = 200;
-    n;
-    d;
-    k;
+    c = 200; // tham số tuỳ chỉnh
+    n; // số hàng của data 
+    d; // số cột của data
+    q; // số lớp của từng bộ data
 }
 
 /* 2. Method to read data from data.txt */

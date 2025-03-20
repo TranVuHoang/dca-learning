@@ -10,12 +10,10 @@
 
 int main() {
     DCA dca;
-    dca.n;
-    dca.d;
-
+    dca.q = 3; // số class của iris dataset
     dca.readFile();
-    dca.n;
-    dca.d;
+    // w, b, e input random
+    dca.initRandom();
 
     return 0;
 }

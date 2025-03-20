@@ -9,6 +9,7 @@ class DCA :public DATA {
 public:
 	vector<vector<double>> w; // biến w
 	vector<vector<double>> e; // biến cờ xi
+	vector<double> b; // biến b
 
 	vector<vector<double>> w_new;
 	vector<vector<double>> e_new;
@@ -23,6 +24,5 @@ public:
 	double lambda; // tham số cho  SCAD penalty function
 
 	void initRandom(); // Hàm khởi tạo mảng ngẫu nhiên
-	void gradientH(); // Hàm tính đạo hàm của  H
-
+	//void gradientH(); // Hàm tính đạo hàm của  H
 };

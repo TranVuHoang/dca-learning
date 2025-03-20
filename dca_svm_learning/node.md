@@ -1,23 +1,34 @@
 ﻿### Biến (Variables):
 
+Biến chính:
+✅X: Tập hợp các vector đặc trưng đầu vào.(data input)
+	kích thước (nxd): Ma trận đặc trưng với kích thước R(nxd)
+	n: là số lượng mẫu dữ liệu(số hàng của data).
+	d: là số lượng đặc trưng - số cột của data (features).
+
+✅Y: Tập vector nhãn với Q lớp - (cột class của data)
+
 ✅w: Tập hợp các vector trọng số trong không gian Rd. Trong các mô hình MSVM, w thường được biểu diễn dưới dạng ma trận W chứa Q vector wi.
+	Kích thước: w(Q, d)
 
 ✅b: Vector bias trong không gian RQ. Trong các mô hình MSVM, b thường được biểu diễn dưới dạng vector B chứa Q giá trị bias bk.
+	Kích thước: b(Q)
 
-✅ξ: Tập hợp các vector biến slack (slack variables) trong không gian RQ. Mỗi vector ξ chứa các thành phần ξik.
+✅ξ(cờ xi): Tập hợp các vector biến slack (slack variables) trong không gian RQ. Mỗi vector ξ chứa các thành phần ξik.
+	Kích thước: (nxQ)
 
 wi: Vector trọng số thứ i của một siêu phẳng, thuộc tập W.
-•
+
 wk: Một trong Q vector trọng số.
-•
+
 bk: Thành phần thứ k của vector bias B.
-•
+
 ξik: Biến slack cho mẫu thứ i và lớp thứ k (k khác lớp thực yi).
-•
+
 wij: Giá trị trọng số của siêu phẳng thứ i liên kết với đặc trưng thứ j.
-•
+
 uij: Biến nhị phân, uij = 1 nếu wij ≠ 0 và uij = 0 nếu wij = 0.
-•
+
 tij: Biến được giới thiệu trong các bài toán tối ưu hóa sau khi xấp xỉ chuẩn l0.
 
 
