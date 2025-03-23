@@ -45,7 +45,7 @@ void DATA::readFile() {
                 row.push_back(stod(values[i])); // Chuyển thành số
 
             x.push_back(row);
-            y.push_back(stod(values.back()));
+            y.push_back(stoi(values.back()));
         }
         catch (const invalid_argument&) {
             cerr << "Loi: '" << value << "' khong phai so hop le!\n";

@@ -1,1 +1,3 @@
-﻿  dca_svm_learning.vcxproj -> C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\x64\Debug\dca_svm_learning.exe
+﻿  dca.cpp
+C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\dca.cpp(198): warning C4715: 'DCA::solveCPlex': not all control paths return a value
+  dca_svm_learning.vcxproj -> C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\x64\Debug\dca_svm_learning.exe

@@ -25,7 +25,7 @@ public:
 	int n; // number of rows in data✅
 	int d; // number of columns in data✅
 	vector<vector<double>> x; // biến x để lưu mảng data 
-	vector<double> y; // biến y: để lưu mảng class(cột class)
+	vector<int> y; // biến y: để lưu mảng class(cột class)
 
 	int c; // tham số điều chỉnh✅
 	int q; // số class của từng bộ dữ liệu✅
