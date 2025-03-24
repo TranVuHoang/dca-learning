@@ -36,7 +36,7 @@ public:
 	vector<double> b_2;
 
 	double epsilon = 0.00001;
-	double beta; // Tham số của bài báo The Algorithm 2: l2 - l0 - DCA1 
+	double beta = 0.1; // Tham số của bài báo The Algorithm 2: l2 - l0 - DCA1 
 	// beta = 0.1✅
 	double alpha = 1.5; // Tham số của bài báo The Algorithm 2: l2 - l0 - DCA1 
 	// với hàm xấp xỉ PiE alpha thuộc (1.5, 5) bước nhảy 0.5
