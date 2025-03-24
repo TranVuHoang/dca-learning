@@ -1,3 +1,14 @@
 ﻿  dca.cpp
-C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\dca.cpp(198): warning C4715: 'DCA::solveCPlex': not all control paths return a value
+  dca_svm.cpp
+C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\dca_svm.cpp(51,13): warning C4566: character represented by universal-character-name '\u1ECB' cannot be represented in the current code page (1252)
+C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\dca_svm.cpp(51,13): warning C4566: character represented by universal-character-name '\u1EE5' cannot be represented in the current code page (1252)
+C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\dca_svm.cpp(51,13): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\dca_svm.cpp(51,13): warning C4566: character represented by universal-character-name '\u1EA7' cannot be represented in the current code page (1252)
+C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\dca_svm.cpp(52,13): warning C4566: character represented by universal-character-name '\u1ECB' cannot be represented in the current code page (1252)
+C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\dca_svm.cpp(52,13): warning C4566: character represented by universal-character-name '\u1EE5' cannot be represented in the current code page (1252)
+C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\dca_svm.cpp(52,13): warning C4566: character represented by universal-character-name '\u1EB7' cannot be represented in the current code page (1252)
+C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\dca_svm.cpp(53,13): warning C4566: character represented by universal-character-name '\u1ED1' cannot be represented in the current code page (1252)
+C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\dca_svm.cpp(53,13): warning C4566: character represented by universal-character-name '\u1EB7' cannot be represented in the current code page (1252)
+  Generating Code...
+C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\dca.cpp(258): warning C4715: 'DCA::solveCPlex': not all control paths return a value
   dca_svm_learning.vcxproj -> C:\Users\Admin\Desktop\DCA-learning\dca_svm_learning\x64\Debug\dca_svm_learning.exe
