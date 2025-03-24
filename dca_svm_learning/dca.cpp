@@ -1,6 +1,6 @@
 ﻿#include "dca.h"
 
-/*------------- Hàm khởi tạo random start ---------------*/
+/*------------- Hàm khởi tạo random start -------------*/
 void DCA::initRandom() {
 	// Cấp phát kích thước cho w, b, xi
 	w.resize(q, vector<double>(d, 0.0)); // khai báo biến w - kích thước (Q × d)
@@ -57,7 +57,7 @@ void DCA::initRandom() {
 }
 /*------------- Hàm khởi tạo random end ---------------*/
 
-/*------------- Step 1️: Hàm tính đạo hàm của H theo công thức (16) start ------------------*/
+/*------------- Step 1️: Hàm tính đạo hàm của H theo công thức (16) start --------*/
 void DCA::GradientH() {
     w_new.resize(q, vector<double>(d, 0.0)); // Khai báo w_new có kích thước: (qxd)✅
     b_new.resize(q, 0.0); // Khai báo b_new có kích thước: (qx1)✅
@@ -106,7 +106,7 @@ void DCA::GradientH() {
 }
 /*------------- Hàm tính đạo hàm của H theo công thức (16) end ------------------*/
 
-/*------------- Step 2: Compute Xl+1 theo công thức (18) start ------------------*/
+/*------------- Step 2: Compute Xl+1 theo công thức (18) start ----------------*/
 bool DCA::solveCPlex() {
     // Cấp phát kích thước cho w_2, b_2, xi_2
     w_2.resize(q, vector<double>(d, 0.0)); // khai báo biến w - kích thước (Q × d) ✅
@@ -258,7 +258,7 @@ bool DCA::solveCPlex() {
 }
 /*------------- Step 2: Compute Xl+1 theo công thức (18) end ------------------*/
 
-/* Tính hàm mục tiêu ban đầu công thức (4) - start*/
+/*------------- Tính hàm mục tiêu ban đầu công thức (4) - start -----------*/
 void DCA::getOBJ_EXP(double& obj)
 {
     double total = 0;
@@ -289,9 +289,9 @@ void DCA::getOBJ_EXP(double& obj)
             else
                 total += -alpha * (1 - exp(alpha * w[k][j]));
 }
-/* Tính hàm mục tiêu ban đầu - end*/
+/*------------- Tính hàm mục tiêu ban đầu công thức (4) - end -------------*/
 
-/* Tính hàm mục tiêu ở mỗi bước lặp công thức (4) - start*/
+/*------------- Tính hàm mục tiêu ở mỗi bước lặp công thức (4) - start -----------*/
 void DCA::getOBJ2_EXP(double& obj)
 {
     double total = 0;
@@ -322,9 +322,9 @@ void DCA::getOBJ2_EXP(double& obj)
             else
                 total += -alpha * (1 - exp(alpha * w_2[k][j]));
 }
-/* Tính hàm mục tiêu ban đầu - end*/
+/*------------- Tính hàm mục tiêu ở mỗi bước lặp công thức (4) - end -------------*/
 
-/* Điều kiện dừng start */
+/*------------- Điều kiện dừng start -----------*/
 void DCA::checkFrobeniusNorm(double& norm_frobenius) {
     // tính vế trái của điều kiện dừng: || X(l-1) - X(l) || 
     double norm_left = 0.0;
@@ -378,7 +378,7 @@ void DCA::checkFrobeniusNorm(double& norm_frobenius) {
 
     norm_frobenius = norm_left / norm_right;
 }
-/* Điều kiện dừng end */
+/*------------- Điều kiện dừng end -------------*/
 
 /* ------------------ Update w, b, xi start ------------------- */
 void DCA::updateMembership() {

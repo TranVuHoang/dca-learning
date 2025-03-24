@@ -35,9 +35,8 @@ int main() {
         dca_piE.getOBJ2_EXP(obj_final);
         cout << "Updated Objective Value" << iter << ": " << obj_final << endl;
         
-        // Ultil
+        // Ultil(điều kiện dừng)
         dca_piE.checkFrobeniusNorm(check);
-
         if (check < dca_piE.epsilon) {
             break;
         }
