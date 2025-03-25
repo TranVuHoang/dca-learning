@@ -50,5 +50,12 @@ public:
 	void getOBJ2_EXP(double& obj); // hàm mục tiêu mỗi vòng lặp
 
 	void checkFrobeniusNorm(double& norm_frobenius); // điều kiện dừng
-	void updateMembership();
+	void updateMembership(); // cập nhật w, b, xi
+
+	void featureselection(vector<vector<double>> w, vector<double>& feature, double threshoud = 0.01);
+	int  featurecount(vector<vector<double>> w, double threshoud, vector<double>& feature);
+
+	void preparetestset(vector<double> feature);
+	void Export(string filename, vector<vector<double>> w, vector<double> b, vector<double> feature, vector<int> y_pred);
+	double getAccracy(const vector<int>& y_test, const vector<int>& y_pred);
 };

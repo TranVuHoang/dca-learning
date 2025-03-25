@@ -49,10 +49,11 @@ int main() {
     }
     cout << endl << "Solving..................................Done." << endl;
     cout << "Initialization...........................Done" << endl;
-    cout << "Solver: DCA-EXP starts to solve the model: " << "MSVM" << endl;
+    cout << "Solver: DCA-PiE starts to solve the model: " << "MSVM-l2-l0" << endl;
     cout << "Gia tri ham muc tieu ban dau: " << obj_original << endl;
     cout << "Gia tri ham muc tieu trong vong lap:" << obj_final << endl;
     cout << "Iter: " << iter + 1 << endl;
+    cout << "Accuracy on test set:";
 
     return 0;
 }

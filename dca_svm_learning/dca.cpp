@@ -366,7 +366,7 @@ void DCA::checkFrobeniusNorm(double& norm_frobenius) {
 }
 /*------------- Điều kiện dừng end -------------*/
 
-/* ------------------ Update w, b, xi start ------------------- */
+/* ------------ Step 3: Update w, b, xi start ------------ */
 //void DCA::updateMembership() {
 //    // cập nhật w2
 //    for (int k = 0; k < q; k++) {
@@ -392,4 +392,209 @@ void DCA::updateMembership() {
     xi = xi_2; // Gán toàn bộ ma trận xi_2 vào xi
     b = b_2;   // Gán toàn bộ vector b_2 vào b
 }
-/* ------------------ Update w, b, xi end ------------------- */
+/* ------------ Step 3: Update w, b, xi end ------------ */
+
+/*=======================================================================================
+ * Hàm chọn lọc đặc trưng (Feature Selection)
+ * Mục đích: Loại bỏ các đặc trưng có trọng số nhỏ, chỉ giữ lại các đặc trưng quan trọng.
+ * - Tính tổng trọng số tuyệt đối của mỗi đặc trưng trên tất cả các lớp.
+ * - Chuẩn hóa trọng số về khoảng [0,1].
+ * - Loại bỏ các đặc trưng có trọng số nhỏ hơn ngưỡng `threshoud`.
+ * - Trả về ma trận trọng số `w_tmp` sau khi lọc đặc trưng.
+========================================================================================*/
+void DCA::featureselection(vector<vector<double>> w, vector<double>& feature, double threshoud)
+{
+    if (w.empty() || w[0].empty()) {
+        cerr << "Error: Ma trận w không hợp lệ!" << endl;
+        return;
+    }
+
+    int q = w.size();
+    int d = w[0].size();
+    feature.assign(d, 0.0); // Khởi tạo feature với giá trị 0
+
+    // Tính tổng trọng số tuyệt đối của từng đặc trưng
+    for (int i = 0; i < q; i++)
+        for (int j = 0; j < d; j++)
+            feature[j] += abs(w[i][j]);
+
+    // Tìm giá trị lớn nhất
+    double max_value = *max_element(feature.begin(), feature.end());
+
+    // Chuẩn hóa và lọc đặc trưng nhỏ
+    if (max_value > 1e-9) {
+        for (int i = 0; i < d; i++) {
+            feature[i] /= max_value;
+            if (feature[i] < threshoud) feature[i] = 0; // Loại bỏ đặc trưng yếu
+        }
+    }
+
+    // Tạo ma trận w_tmp chỉ chứa các đặc trưng quan trọng
+    vector<vector<double>> w_tmp;
+    for (int i = 0; i < q; i++)
+    {
+        vector<double> row;
+        for (int j = 0; j < d; j++)
+            if (feature[j] > 0)
+                row.push_back(w[i][j]);
+        w_tmp.push_back(row);
+    }
+}
+
+/* ------------ Lọc và cập nhật tập test dựa trên các đặc trưng được chọn ------------*/
+void DCA::preparetestset(vector<double> feature) {
+    int new_d = 0;
+    vector<int> selected_features;
+
+    // Xác định các cột cần giữ lại
+    for (int j = 0; j < d; j++) {
+        if (feature[j] > 1e-6) {  // Dùng 1e-6 thay vì 0e-6 để tránh lỗi số học dấu phẩy động
+            selected_features.push_back(j);
+            new_d++;
+        }
+    }
+
+    // Cập nhật x_test chỉ giữ lại các cột đã chọn
+    for (auto& row : x_test) {
+        vector<double> new_row;
+        new_row.reserve(new_d);  // Tối ưu bộ nhớ
+        for (int j : selected_features) {
+            new_row.push_back(row[j]);
+        }
+        row = std::move(new_row);  // Tránh copy không cần thiết
+    }
+
+    // Cập nhật lại số chiều đặc trưng
+    d = new_d;
+}
+
+/*
+ * Hàm đếm số đặc trưng quan trọng (Feature Count)
+ * Mục đích: Xác định số lượng đặc trưng có trọng số lớn hơn hoặc bằng `threshoud`.
+ * - Tính tổng trọng số tuyệt đối của mỗi đặc trưng trên tất cả các lớp.
+ * - Chuẩn hóa trọng số về khoảng [0,1].
+ * - Đếm số đặc trưng có trọng số >= `threshoud` và đánh dấu chúng.
+ * - Trả về số lượng đặc trưng quan trọng.
+ */
+int DCA::featurecount(vector<vector<double>> w, double threshoud, vector<double>& feature)
+{
+    if (w.empty() || w[0].empty()) {
+        cerr << "Error: Ma trận w không hợp lệ!" << endl;
+        return 0;
+    }
+
+    int q = w.size();  // Số lớp
+    int d = w[0].size();  // Số đặc trưng ban đầu
+    feature.assign(d, 0.0); // Khởi tạo vector feature với giá trị 0
+
+    // Bước 1: Tính tổng trọng số tuyệt đối của từng đặc trưng
+    for (int i = 0; i < q; i++)
+        for (int j = 0; j < d; j++)
+            feature[j] += abs(w[i][j]);
+
+    // Bước 2: Tìm giá trị lớn nhất trong feature để chuẩn hóa
+    double max_value = *max_element(feature.begin(), feature.end());
+
+    // Bước 3: Chuẩn hóa và đếm số đặc trưng quan trọng
+    int count = 0;
+    if (max_value > 1e-9) { // Tránh chia cho 0
+        for (int i = 0; i < d; i++) {
+            feature[i] /= max_value;
+            if (feature[i] >= threshoud) {
+                count++;
+                feature[i] = 1; // Đánh dấu đặc trưng quan trọng
+            }
+            else {
+                feature[i] = 0; // Loại bỏ đặc trưng không quan trọng
+            }
+        }
+    }
+    return count; // Trả về số lượng đặc trưng quan trọng
+}
+
+/* ------------------ Xuất kết quả mô hình ra file -------------------
+ * Hàm này lưu trọng số mô hình, bias, lựa chọn đặc trưng và nhãn dự đoán vào file.
+ * -------------------------------------------------------------------- */
+void DCA::Export(string filename, vector<vector<double>> w, vector<double> b, vector<double> feature, vector<int> y_pred) {
+    ofstream w_file(filename);
+
+    if (!w_file.is_open())
+    {
+        cerr << "❌ Error: Không thể mở file '" << filename << "' để ghi." << endl;
+        return; // Ngăn ghi dữ liệu vào file nếu mở thất bại
+    }
+
+    w_file << fixed << setprecision(6); // Định dạng số thực
+    w_file << "Solver name: DCA-PiE" << endl;
+    w_file << "Model name : MSVM-l2-l0" << endl;
+    w_file << "Optimal hyperplanes :" << endl;
+
+    // Kiểm tra và ghi trọng số w
+    if (!w.empty() && !w[0].empty()) {
+        for (int k = 0; k < q; k++)
+        {
+            for (int j = 0; j < d; j++)
+            {
+                if (abs(w[k][j]) > 1e-9) // Chỉ in những giá trị khác 0
+                {
+                    w_file << "w[" << k << "][" << j << "] = " << w[k][j] << endl;
+                }
+            }
+        }
+    }
+    else {
+        w_file << "⚠️ Cảnh báo: Trọng số w chưa được khởi tạo!" << endl;
+    }
+
+    w_file << "All other variables are equal to 0." << endl;
+
+    // Kiểm tra và ghi bias b
+    if (!b.empty()) {
+        for (int i = 0; i < q; i++)
+        {
+            w_file << "b[" << i << "] = " << b[i] << endl;
+        }
+    }
+    else {
+        w_file << "⚠️ Cảnh báo: Bias b chưa được khởi tạo!" << endl;
+    }
+
+
+    // Kiểm tra kích thước feature
+    if (feature.size() != w[0].size()) {
+        cerr << "❌ Lỗi: Kích thước feature không khớp với số chiều của w!" << endl;
+        w_file.close();
+        return;
+    }
+
+    // Ghi thông tin chọn đặc trưng
+    w_file << "Feature selection (0 : Unselected, 1 : Selected):" << endl << "[";
+    for (int i = 0; i < d; ++i)
+    {
+        w_file << (feature[i] != 0 ? "1 " : "0 ");
+    }
+    w_file << "]\n";
+
+    // Kiểm tra và ghi nhãn dự đoán
+    if (y_pred.empty()) {
+        w_file << "⚠️ Cảnh báo: Không có nhãn dự đoán nào được tạo!" << endl;
+    }
+    else {
+        w_file << "Predicted labels: \n";
+        for (int prediction : y_pred)
+        {
+            w_file << prediction << "\n";
+        }
+    }
+
+    w_file.close();
+}
+
+/* ------------ Tính accuracy(độ chính xác) start ------------ */
+double DCA::getAccracy(const vector<int>& y_test, const vector<int>& y_pred) {
+    int count = 0;
+    for (size_t i = 0; i < y_test.size(); i++)
+        if (y_test[i] == y_pred[i]) count++;
+    return static_cast<double>(count) / y_test.size();
+}
+/* ------------ Tính accuracy(độ chính xác) end ------------ */
