@@ -9,12 +9,13 @@
 #include "data.h"
 
 /* Phương thức khởi tạo DATA*/
-DATA::DATA() {
-    c = 200; // tham số tuỳ chỉnh
-    n; // số hàng của data 
-    d; // số cột của data
-    q; // số lớp của từng bộ data
-}
+//DATA::DATA() {
+//    c = 200; // tham số tuỳ chỉnh
+//    n(0); // số hàng của data 
+//    d; // số cột của data
+//    q; // số lớp của từng bộ data
+//}
+DATA::DATA() : c(100), n(0), d(0), q(0) {}
 
 /* 2. Method to read data from data.txt */
 void DATA::readFile() {
@@ -22,6 +23,7 @@ void DATA::readFile() {
 
     if (!file) {
         cerr << "Khong the mo file!\n";
+        return;
     }
     string line;
 
@@ -51,8 +53,14 @@ void DATA::readFile() {
             cerr << "Loi: '" << value << "' khong phai so hop le!\n";
         }
     }
-    n = (int)x.size(); // n = 150
-    d = (int)x[0].size(); // d = 4
+
+    if (!x.empty()) {
+        n = (int)x.size();
+        d = (int)x[0].size();
+    }
+    else {
+        cerr << "Dữ liệu không hợp lệ hoặc trống!\n";
+    }
 
     file.close();
 }

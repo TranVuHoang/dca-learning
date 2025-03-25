@@ -12,6 +12,7 @@ int main() {
     DCA dca_piE;
     dca_piE.q = 3; // số class của iris dataset
     dca_piE.readFile();
+
     // w, b, e khởi tạo random
     dca_piE.initRandom();
     int iter = 0;
@@ -22,18 +23,19 @@ int main() {
     double check = 0.0;
 
     dca_piE.getOBJ_EXP(obj_original); // tính giá trị hàm mục tiêu ban đầu
-    
+    cout << "Gia tri ham muc tieu ban dau: " << obj_original << endl;
+
     while (iter < maxIter)
     {
         // Step 1: tính đạo hàm H
         dca_piE.GradientH(); // ✅
 
         // Step 2: tính đạo hàm G, giải bài toán con bằng CPLEX
-        bool k = dca_piE.solveCPlex();
+        dca_piE.solveCPlex();
 
         // Tính giá trị hàm mục tiêu sau khi cập nhật
         dca_piE.getOBJ2_EXP(obj_final);
-        cout << "Updated Objective Value" << iter << ": " << obj_final << endl;
+        cout << "Gia tri ham muc tieu trong vong lap thu " << iter + 1 << ": " << obj_final << endl;
         
         // Ultil(điều kiện dừng)
         dca_piE.checkFrobeniusNorm(check);
@@ -45,11 +47,12 @@ int main() {
         dca_piE.updateMembership();
         iter++;
     }
-    cout << "Solving..................................Done." << endl;
+    cout << endl << "Solving..................................Done." << endl;
+    cout << "Initialization...........................Done" << endl;
     cout << "Solver: DCA-EXP starts to solve the model: " << "MSVM" << endl;
-    cout << "Giá trị hàm mục tiêu ban đầu: " << obj_original << endl;
-    cout << "Giá trị hàm mục tiêu trong vòng lặp:" << obj_final << endl;
-    cout << "Số vòng lặp: " << iter << endl;
+    cout << "Gia tri ham muc tieu ban dau: " << obj_original << endl;
+    cout << "Gia tri ham muc tieu trong vong lap:" << obj_final << endl;
+    cout << "Iter: " << iter + 1 << endl;
 
     return 0;
 }

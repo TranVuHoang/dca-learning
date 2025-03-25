@@ -44,7 +44,7 @@ public:
 	void initRandom(); // Hàm khởi tạo mảng ngẫu nhiên
 
 	void GradientH(); // Hàm tính đạo hàm của  H
-	bool solveCPlex(); // giải bài toán con = CPLEX
+	void solveCPlex(); // giải bài toán con = CPLEX
 	
 	void getOBJ_EXP(double& obj); // hàm mục tiêu ban đầu
 	void getOBJ2_EXP(double& obj); // hàm mục tiêu mỗi vòng lặp

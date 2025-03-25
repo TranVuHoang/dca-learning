@@ -29,6 +29,7 @@ public:
 
 	int c; // tham số điều chỉnh✅
 	int q; // số class của từng bộ dữ liệu✅
+	double beta = 0.01;
 	
 	/*-----------------------------------------------------
 	# METHODS:
